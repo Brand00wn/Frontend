@@ -45,7 +45,7 @@ export default function Login() {
         style={{ padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '420px' }}
       >
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-           <img src={logoImg} alt="CheckOps Logo" style={{ width: '80px', height: '80px', marginBottom: '16px', objectFit: 'contain' }} />
+           <img src={logoImg} alt="CheckOps Logo" style={{ width: '130px', height: '130px', marginBottom: '16px', objectFit: 'contain', filter: 'drop-shadow(0 0 25px rgba(0, 212, 170, 0.6))' }} />
           <h1 style={{ fontSize: '28px', fontWeight: 700 }}>Check<span style={{ color: 'var(--primary)' }}>Ops</span></h1>
           <p style={{ color: 'var(--text-muted)', marginTop: '8px' }}>Portal Administrativo</p>
         </div>
