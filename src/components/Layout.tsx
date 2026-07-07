@@ -2,6 +2,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Monitor, Users, Ticket, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
+import logoImg from '../assets/checkops_logo.png';
 
 export default function Layout() {
   const { logout } = useAuth();
@@ -17,7 +18,7 @@ export default function Layout() {
       <aside className="sidebar">
         <div className="sidebar-logo">
            <img 
-             src="/src/assets/checkops_logo.png" 
+             src={logoImg} 
              alt="CheckOps Logo" 
              style={{ width: '48px', height: '48px', objectFit: 'contain', filter: 'drop-shadow(0 0 15px rgba(0, 212, 170, 0.6))' }} 
            />
