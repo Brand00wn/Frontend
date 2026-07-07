@@ -13,7 +13,7 @@ export default function Operators() {
 
   const fetchOperators = () => {
     setLoading(true);
-    api.get('/users?role=1')
+    api.get('/users?role=2')
       .then(res => setOperators(res.data))
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
