@@ -88,8 +88,9 @@ export default function Operations() {
 
   const getStatusConfig = (status: string) => {
     switch(status) {
-      case 'Assigned': return { icon: <Clock size={16} />, color: '#f59e0b', text: 'Pendente' };
-      case 'Accepted': return { icon: <AlertCircle size={16} />, color: '#38bdf8', text: 'Em Andamento' };
+      case 'Pending': return { icon: <Clock size={16} />, color: '#f59e0b', text: 'Pendente' };
+      case 'Accepted': return { icon: <AlertCircle size={16} />, color: '#38bdf8', text: 'Aceita' };
+      case 'InProgress': return { icon: <AlertCircle size={16} />, color: '#8b5cf6', text: 'Em Andamento' };
       case 'Completed': return { icon: <CheckCircle size={16} />, color: '#22c55e', text: 'Concluída' };
       case 'Cancelled': return { icon: <XCircle size={16} />, color: '#ef4444', text: 'Cancelada' };
       default: return { icon: <Clock size={16} />, color: '#64748b', text: status };
@@ -184,7 +185,7 @@ export default function Operations() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  {(op.status === 'Assigned' || op.status === 'Accepted') && (
+                  {(op.status === 'Pending' || op.status === 'Accepted' || op.status === 'InProgress') && (
                     <>
                       <button onClick={() => handleComplete(op.id)} style={{ background: 'transparent', border: '1px solid #22c55e', color: '#22c55e', padding: '8px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <CheckCircle size={16} /> Finalizar
