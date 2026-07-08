@@ -42,15 +42,37 @@ export default function Operations() {
   };
 
   const handleCancel = async (id: string) => {
-    const reason = prompt('Motivo do cancelamento:');
-    if (!reason) return;
+    const reason = prompt('Motivo do cancelamento (Obrigatório):');
+    if (!reason || reason.trim() === '') {
+      alert('A justificativa é obrigatória para cancelar.');
+      return;
+    }
     try {
       setLoading(true);
       await api.post('/operations/cancel', { operationId: id, reason });
       fetchOperations();
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Erro ao cancelar operação.');
+      alert(err.response?.data?.message || 'Erro ao cancelar operação.');
+      setLoading(false);
+    }
+  };
+
+  const handleComplete = async (id: string) => {
+    const reason = prompt('Justificativa para finalização manual (Obrigatório):');
+    if (!reason || reason.trim() === '') {
+      alert('A justificativa é obrigatória para finalizar.');
+      return;
+    }
+    try {
+      setLoading(true);
+      // O backend pode usar POST /operations/complete ou POST /operations/{id}/complete
+      // Vamos tentar usar POST /operations/complete que aceita CompleteOperationCommand
+      await api.post('/operations/complete', { operationId: id, completionReason: reason });
+      fetchOperations();
+    } catch (err: any) {
+      console.error(err);
+      alert(err.response?.data?.message || 'Erro ao finalizar operação.');
       setLoading(false);
     }
   };
@@ -164,6 +186,9 @@ export default function Operations() {
                 <div style={{ display: 'flex', gap: '8px' }}>
                   {(op.status === 'Assigned' || op.status === 'Accepted') && (
                     <>
+                      <button onClick={() => handleComplete(op.id)} style={{ background: 'transparent', border: '1px solid #22c55e', color: '#22c55e', padding: '8px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <CheckCircle size={16} /> Finalizar
+                      </button>
                       <button onClick={() => handleTransfer(op.id)} style={{ background: 'transparent', border: '1px solid #38bdf8', color: '#38bdf8', padding: '8px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <ArrowRightLeft size={16} /> Transferir
                       </button>
